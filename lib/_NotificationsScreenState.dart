@@ -1,0 +1,113 @@
+import 'package:flutter/material.dart';
+
+class NotificationsScreen extends StatefulWidget {
+  final VoidCallback onBackToHome;
+
+  const NotificationsScreen({super.key, required this.onBackToHome});
+
+  @override
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
+}
+
+
+class _NotificationsScreenState extends State<NotificationsScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _fadeIn;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _fadeIn = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _fadeIn,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              "Notifications",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 40),
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TweenAnimationBuilder<double>(
+                      tween: Tween(begin: 0, end: 1),
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.easeOutBack,
+                      builder: (context, value, child) {
+                        return Transform.scale(
+                          scale: value,
+                          child: Container(
+                            height: 160,
+                            width: 160,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.deepPurple.shade50,
+                            ),
+                            child: const Icon(
+                              Icons.notifications_off_outlined,
+                              size: 80,
+                              color: Colors.deepPurple,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 24),
+                    const Text(
+                      "No Notifications Yet",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      "You have no notifications right now.\nCome back later.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                    const SizedBox(height: 24),
+                    ElevatedButton.icon(
+                      onPressed: widget.onBackToHome,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.deepPurple,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      ),
+                      icon: const Icon(Icons.home, color: Colors.white),
+                      label: const Text(
+                        "Back to Home",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

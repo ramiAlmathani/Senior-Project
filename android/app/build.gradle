@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services' // ✅ Required for Firebase
+
+android {
+    compileSdkVersion 33
+
+    defaultConfig {
+        applicationId "com.yourcompany.yourapp"
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+
+dependencies {
+    // ✅ Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:33.12.0')
+
+    // ✅ Firebase Authentication
+    implementation 'com.google.firebase:firebase-auth'
+
+    // Other dependencies (modify as needed)
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+}
