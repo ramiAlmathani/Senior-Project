@@ -23,7 +23,7 @@ class CustomDrawer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
               child: Row(
                 children: [
-                  Icon(icon, color: Colors.deepPurple),
+                  Icon(icon, color: Color(0xFF007EA7)),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
@@ -60,7 +60,7 @@ class CustomDrawer extends StatelessWidget {
               padding: const EdgeInsets.all(24),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.purple, Colors.deepPurple],
+                  colors: [const Color(0xFFB2DFDB), const Color(0xFF007EA7)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -71,7 +71,7 @@ class CustomDrawer extends StatelessWidget {
                   CircleAvatar(
                     radius: 26,
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.person, size: 30, color: Colors.deepPurple),
+                    child: Icon(Icons.person, size: 30, color: const Color(0xFF007EA7)),
                   ),
                   const SizedBox(width: 16),
                   const Expanded(

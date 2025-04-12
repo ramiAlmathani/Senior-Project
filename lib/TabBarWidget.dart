@@ -15,7 +15,7 @@ class TabBarWidget extends StatelessWidget {
         labelColor: Colors.white,
         unselectedLabelColor: Colors.black54,
         indicator: BoxDecoration(
-          color: Colors.deepPurple,
+          color: const Color(0xFF007EA7),
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         tabs: [

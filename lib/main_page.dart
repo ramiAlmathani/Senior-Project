@@ -78,7 +78,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.purple, Colors.deepPurpleAccent],
+              colors: [const Color(0xFFB2DFDB), const Color(0xFF007EA7)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -109,7 +109,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
-          selectedItemColor: Colors.deepPurple,
+          selectedItemColor: Color(0xFF007EA7),
           unselectedItemColor: Colors.grey,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),

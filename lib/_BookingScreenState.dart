@@ -71,7 +71,7 @@ class _BookingScreenState extends State<BookingScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Booking Details'),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF007EA7),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -88,7 +88,7 @@ class _BookingScreenState extends State<BookingScreen> {
             ElevatedButton(
               onPressed: _submitBooking,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
+                backgroundColor: const Color(0xFF007EA7),
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),

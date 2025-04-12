@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 decoration: InputDecoration(
                   hintText: "What do you need help with?",
                   hintStyle: const TextStyle(color: Colors.grey),
-                  prefixIcon: const Icon(Icons.search, color: Colors.deepPurple),
+                  prefixIcon: const Icon(Icons.search, color: const Color(0xFF007EA7)),
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
       // ------------------ CHATBOT ICON ------------------
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF007EA7),
         onPressed: () {
           Navigator.pushNamed(context, '/chatbot');
         },
@@ -116,7 +116,7 @@ class ServiceTile extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(service.icon, size: 36, color: Colors.deepPurple),
+              Icon(service.icon, size: 36, color: const Color(0xFF007EA7)),
               const SizedBox(height: 8),
               Text(
                 service.name,

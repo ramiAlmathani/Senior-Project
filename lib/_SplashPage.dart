@@ -51,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFD2A8F4),
+      backgroundColor: const Color(0xFFF0F8FA),
       body: Center(
         child: FadeTransition(
           opacity: _fadeAnimation,
@@ -59,21 +59,21 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 140,
-                width: 140,
+                height: 300,
+                width: 300,
                 child: Image.asset('assets/images/Screenshot_2025-03-24_213038-removebg-preview.png'),
               ),
               const SizedBox(height: 24),
               const Text(
-                'Beauty app supervises',
+                'Please wait...',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.white,
+                  color: const Color(0xFF007EA7),
                   fontWeight: FontWeight.w500,
                 ),
               ),
               const SizedBox(height: 20),
-              const CircularProgressIndicator(color: Colors.white),
+              const CircularProgressIndicator(color: const Color(0xFF007EA7)),
             ],
           ),
         ),

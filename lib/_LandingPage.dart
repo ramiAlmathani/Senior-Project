@@ -61,7 +61,7 @@ class _LandingPageState extends State<LandingPage> with TickerProviderStateMixin
   }
 
   void _startAutoSlide() {
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 8), (timer) {
       if (_currentPage < _pages.length - 1) {
         _pageController.nextPage(
           duration: const Duration(milliseconds: 400),
@@ -141,7 +141,7 @@ class _LandingPageState extends State<LandingPage> with TickerProviderStateMixin
                       ],
                     ),
                     const SizedBox(height: 20),
-                    Icon(page.icon, size: 100, color: Colors.deepPurple),
+                    Icon(page.icon, size: 100, color: const Color(0xFF007EA7)),
                     const SizedBox(height: 30),
                     FadeTransition(
                       opacity: _fadeAnimation,
@@ -170,7 +170,7 @@ class _LandingPageState extends State<LandingPage> with TickerProviderStateMixin
                       controller: _pageController,
                       count: _pages.length,
                       effect: ExpandingDotsEffect(
-                        activeDotColor: Colors.deepPurple,
+                        activeDotColor: const Color(0xFF007EA7),
                         dotHeight: 10,
                         dotWidth: 10,
                         spacing: 8,
@@ -190,7 +190,7 @@ class _LandingPageState extends State<LandingPage> with TickerProviderStateMixin
                       child: ElevatedButton(
                         onPressed: _nextPage,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.deepPurple,
+                          backgroundColor: const Color(0xFF007EA7),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),

@@ -100,7 +100,7 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage>
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.purpleAccent, Colors.deepPurpleAccent],
+                      colors: [const Color(0xFFB2DFDB), const Color(0xFF007EA7)],
                     ),
                     shape: BoxShape.circle,
                   ),
@@ -161,7 +161,7 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage>
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     minimumSize: const Size.fromHeight(50),
-                    backgroundColor: Colors.deepPurple,
+                    backgroundColor: const Color(0xFF007EA7),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),

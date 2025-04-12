@@ -99,7 +99,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Colors.purpleAccent, Colors.deepPurple],
+                          colors: [const Color(0xFFB2DFDB), const Color(0xFF007EA7)],
                         ),
                         shape: BoxShape.circle,
                       ),
@@ -151,7 +151,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                     ElevatedButton(
                       onPressed: _verifyCode,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple,
+                        backgroundColor: Color(0xFF007EA7),
                         minimumSize: const Size.fromHeight(50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -170,7 +170,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                       child: const Text(
                         "Resend Code",
                         style: TextStyle(
-                          color: Colors.purple,
+                          color: const Color(0xFF007EA7),
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),

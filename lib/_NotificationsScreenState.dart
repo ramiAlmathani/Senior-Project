@@ -63,12 +63,12 @@ class _NotificationsScreenState extends State<NotificationsScreen>
                             width: 160,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.deepPurple.shade50,
+                              color: const Color(0xFFB2DFDB),
                             ),
                             child: const Icon(
                               Icons.notifications_off_outlined,
                               size: 80,
-                              color: Colors.deepPurple,
+                              color: const Color(0xFF007EA7),
                             ),
                           ),
                         );
@@ -89,7 +89,7 @@ class _NotificationsScreenState extends State<NotificationsScreen>
                     ElevatedButton.icon(
                       onPressed: widget.onBackToHome,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple,
+                        backgroundColor: const Color(0xFF007EA7),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
