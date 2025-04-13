@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/service_providers_page.dart';
+import 'package:senior_project/service_model.dart';
 
 // --------------------- HOME SCREEN ---------------------
 class HomeScreen extends StatefulWidget {
@@ -111,7 +113,12 @@ class ServiceTile extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {
-          // Future navigation to service detail or booking
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ServiceProvidersPage(service: service),
+            ),
+          );
         },
         child: Ink(
           decoration: BoxDecoration(
@@ -139,12 +146,6 @@ class ServiceTile extends StatelessWidget {
 }
 
 // --------------------- SERVICE MODEL ---------------------
-class Service {
-  final String name;
-  final IconData icon;
-
-  Service({required this.name, required this.icon});
-}
 
 final List<Service> serviceList = [
   Service(name: "Cleaning", icon: Icons.cleaning_services),
