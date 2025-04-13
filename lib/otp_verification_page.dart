@@ -7,10 +7,10 @@ class OTPVerificationPage extends StatefulWidget {
   final String verificationId;
 
   const OTPVerificationPage({
-    Key? key,
+    super.key,
     required this.phoneNumber,
     required this.verificationId,
-  }) : super(key: key);
+  });
 
   @override
   _OTPVerificationPageState createState() => _OTPVerificationPageState();
@@ -68,7 +68,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
           },
           transitionDuration: const Duration(milliseconds: 500),
         ),
-            (route) => false,
+        (route) => false,
       );
     } catch (e) {
       setState(() {
@@ -97,14 +97,15 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                 child: Column(
                   children: [
                     Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [const Color(0xFFB2DFDB), const Color(0xFF007EA7)],
+                          colors: [Color(0xFFB2DFDB), Color(0xFF007EA7)],
                         ),
                         shape: BoxShape.circle,
                       ),
                       padding: const EdgeInsets.all(24),
-                      child: const Icon(Icons.chat, size: 48, color: Colors.white),
+                      child:
+                          const Icon(Icons.chat, size: 48, color: Colors.white),
                     ),
                     const SizedBox(height: 30),
                     const Text(
@@ -132,7 +133,8 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                         fillColor: Colors.grey[100],
                         hintText: "6-digit code",
                         counterText: "",
-                        contentPadding: const EdgeInsets.symmetric(vertical: 14),
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 14),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,
@@ -151,7 +153,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                     ElevatedButton(
                       onPressed: _verifyCode,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF007EA7),
+                        backgroundColor: const Color(0xFF007EA7),
                         minimumSize: const Size.fromHeight(50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -170,7 +172,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                       child: const Text(
                         "Resend Code",
                         style: TextStyle(
-                          color: const Color(0xFF007EA7),
+                          color: Color(0xFF007EA7),
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),

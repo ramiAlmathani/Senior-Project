@@ -8,6 +8,8 @@ import '_PromotionScreenState.dart';
 
 // --------------------- MAIN PAGE ---------------------
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -41,12 +43,12 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     _fadeController.forward();
 
     _pages = [
-      HomeScreen(),
+      const HomeScreen(),
       OrdersScreen(
-    onBackToServices: () {
-    _onItemTapped(0);
-    },
-    ),
+        onBackToServices: () {
+          _onItemTapped(0);
+        },
+      ),
       PromotionScreen(
         onBackToServices: () {
           _onItemTapped(0);
@@ -78,7 +80,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [const Color(0xFFB2DFDB), const Color(0xFF007EA7)],
+              colors: [Color(0xFFB2DFDB), Color(0xFF007EA7)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -109,13 +111,16 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
-          selectedItemColor: Color(0xFF007EA7),
+          selectedItemColor: const Color(0xFF007EA7),
           unselectedItemColor: Colors.grey,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: "Orders"),
-            BottomNavigationBarItem(icon: Icon(Icons.card_giftcard), label: "Promotions"),
-            BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "Notifications"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_bag), label: "Orders"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.card_giftcard), label: "Promotions"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.notifications), label: "Notifications"),
           ],
         ),
       ),

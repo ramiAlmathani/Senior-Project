@@ -10,7 +10,8 @@ class ChatbotPage extends StatefulWidget {
   State<ChatbotPage> createState() => _ChatbotPageState();
 }
 
-class _ChatbotPageState extends State<ChatbotPage> with TickerProviderStateMixin {
+class _ChatbotPageState extends State<ChatbotPage>
+    with TickerProviderStateMixin {
   final List<_ChatMessage> _messages = [];
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -58,12 +59,12 @@ class _ChatbotPageState extends State<ChatbotPage> with TickerProviderStateMixin
             {
               "role": "system",
               "content":
-              "You are a helpful assistant for a task booking app. Guide the user to book tasks with date and time."
+                  "You are a helpful assistant for a task booking app. Guide the user to book tasks with date and time."
             },
             ..._messages.map((msg) => {
-              "role": msg.isUser ? "user" : "assistant",
-              "content": msg.text,
-            })
+                  "role": msg.isUser ? "user" : "assistant",
+                  "content": msg.text,
+                })
           ],
         }),
       );
@@ -86,7 +87,7 @@ class _ChatbotPageState extends State<ChatbotPage> with TickerProviderStateMixin
       });
 
       _scrollToBottom();
-      _checkForBookingIntent(text + " " + reply);
+      _checkForBookingIntent("$text " + reply);
     } catch (e) {
       setState(() {
         _messages.add(_ChatMessage(
@@ -110,7 +111,9 @@ class _ChatbotPageState extends State<ChatbotPage> with TickerProviderStateMixin
     if (lower.contains("deliver")) task = "Delivery";
 
     final timeReg = RegExp(r'\b\d{1,2} ?(am|pm)\b');
-    final dateReg = RegExp(r'\b(tomorrow|today|\d{1,2}(st|nd|rd|th)?( of)? \w+)\b', caseSensitive: false);
+    final dateReg = RegExp(
+        r'\b(tomorrow|today|\d{1,2}(st|nd|rd|th)?( of)? \w+)\b',
+        caseSensitive: false);
 
     final timeMatch = timeReg.firstMatch(combinedText);
     final dateMatch = dateReg.firstMatch(combinedText);
@@ -176,17 +179,18 @@ class _ChatbotPageState extends State<ChatbotPage> with TickerProviderStateMixin
                 final message = _messages[index];
                 return message.animation != null
                     ? AnimatedBuilder(
-                  animation: message.animation!,
-                  builder: (context, child) {
-                    return Opacity(
-                      opacity: message.animation!.value,
-                      child: Transform.translate(
-                        offset: Offset(0, 20 * (1 - message.animation!.value)),
-                        child: _buildMessageBubble(message),
-                      ),
-                    );
-                  },
-                )
+                        animation: message.animation!,
+                        builder: (context, child) {
+                          return Opacity(
+                            opacity: message.animation!.value,
+                            child: Transform.translate(
+                              offset: Offset(
+                                  0, 20 * (1 - message.animation!.value)),
+                              child: _buildMessageBubble(message),
+                            ),
+                          );
+                        },
+                      )
                     : _buildMessageBubble(message);
               },
             ),
@@ -225,7 +229,8 @@ class _ChatbotPageState extends State<ChatbotPage> with TickerProviderStateMixin
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 4),
         padding: const EdgeInsets.all(12),
-        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
+        constraints:
+            BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
         decoration: BoxDecoration(
           color: message.isUser ? const Color(0xFF007EA7) : Colors.white,
           borderRadius: BorderRadius.only(
@@ -234,11 +239,11 @@ class _ChatbotPageState extends State<ChatbotPage> with TickerProviderStateMixin
             bottomLeft: Radius.circular(message.isUser ? 16 : 0),
             bottomRight: Radius.circular(message.isUser ? 0 : 16),
           ),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black12,
               blurRadius: 4,
-              offset: const Offset(1, 2),
+              offset: Offset(1, 2),
             )
           ],
         ),
@@ -256,7 +261,7 @@ class _ChatbotPageState extends State<ChatbotPage> with TickerProviderStateMixin
   Widget _buildInputBar() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 2)],
       ),
@@ -268,10 +273,13 @@ class _ChatbotPageState extends State<ChatbotPage> with TickerProviderStateMixin
               onSubmitted: _sendMessage,
               decoration: InputDecoration(
                 hintText: "Type your message...",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(24), borderSide: BorderSide.none),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(24),
+                    borderSide: BorderSide.none),
                 filled: true,
                 fillColor: Colors.grey[100],
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
             ),
           ),

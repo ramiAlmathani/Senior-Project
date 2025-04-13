@@ -61,19 +61,20 @@ class _SplashScreenState extends State<SplashScreen>
               SizedBox(
                 height: 300,
                 width: 300,
-                child: Image.asset('assets/images/Screenshot_2025-03-24_213038-removebg-preview.png'),
+                child: Image.asset(
+                    'assets/images/Screenshot_2025-03-24_213038-removebg-preview.png'),
               ),
               const SizedBox(height: 24),
               const Text(
                 'Please wait...',
                 style: TextStyle(
                   fontSize: 18,
-                  color: const Color(0xFF007EA7),
+                  color: Color(0xFF007EA7),
                   fontWeight: FontWeight.w500,
                 ),
               ),
               const SizedBox(height: 20),
-              const CircularProgressIndicator(color: const Color(0xFF007EA7)),
+              const CircularProgressIndicator(color: Color(0xFF007EA7)),
             ],
           ),
         ),

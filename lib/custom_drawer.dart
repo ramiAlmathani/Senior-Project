@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
-  Widget _buildDrawerItem(BuildContext context, IconData icon, String text, {VoidCallback? onTap}) {
+  Widget _buildDrawerItem(BuildContext context, IconData icon, String text,
+      {VoidCallback? onTap}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6),
       child: Material(
@@ -23,15 +24,17 @@ class CustomDrawer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
               child: Row(
                 children: [
-                  Icon(icon, color: Color(0xFF007EA7)),
+                  Icon(icon, color: const Color(0xFF007EA7)),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       text,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ),
-                  const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                  const Icon(Icons.arrow_forward_ios,
+                      size: 16, color: Colors.grey),
                 ],
               ),
             ),
@@ -40,7 +43,6 @@ class CustomDrawer extends StatelessWidget {
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class CustomDrawer extends StatelessWidget {
               padding: const EdgeInsets.all(24),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [const Color(0xFFB2DFDB), const Color(0xFF007EA7)],
+                  colors: [Color(0xFFB2DFDB), Color(0xFF007EA7)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -68,10 +70,11 @@ class CustomDrawer extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 26,
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.person, size: 30, color: const Color(0xFF007EA7)),
+                    child:
+                        Icon(Icons.person, size: 30, color: Color(0xFF007EA7)),
                   ),
                   const SizedBox(width: 16),
                   const Expanded(
@@ -103,7 +106,7 @@ class CustomDrawer extends StatelessWidget {
             const SizedBox(height: 8),
             _buildDrawerItem(context, Icons.apartment, "Register a company"),
             const SizedBox(height: 8),
-            Divider(thickness: 1, indent: 16, endIndent: 16),
+            const Divider(thickness: 1, indent: 16, endIndent: 16),
             const SizedBox(height: 8),
             _buildDrawerItem(context, Icons.share_outlined, "Share"),
             const SizedBox(height: 8),
@@ -114,8 +117,8 @@ class CustomDrawer extends StatelessWidget {
             const Spacer(),
 
             // ---------- Footer ----------
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
               ),

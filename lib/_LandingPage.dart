@@ -10,7 +10,8 @@ class LandingPage extends StatefulWidget {
   State<LandingPage> createState() => _LandingPageState();
 }
 
-class _LandingPageState extends State<LandingPage> with TickerProviderStateMixin {
+class _LandingPageState extends State<LandingPage>
+    with TickerProviderStateMixin {
   final PageController _pageController = PageController();
   late AnimationController _textAnimController;
   late Animation<double> _fadeAnimation;
@@ -21,25 +22,29 @@ class _LandingPageState extends State<LandingPage> with TickerProviderStateMixin
   final List<LandingPageSlide> _pages = [
     LandingPageSlide(
       title: 'Best Helping Hands for you',
-      subtitle: 'With our on-demand services app, we give better services to you.',
+      subtitle:
+          'With our on-demand services app, we give better services to you.',
       buttonText: 'Get Started',
       icon: Icons.handshake,
     ),
     LandingPageSlide(
       title: 'Choose a service',
-      subtitle: 'Find the right service for your needs easily, with a variety of options available at your fingertips.',
+      subtitle:
+          'Find the right service for your needs easily, with a variety of options available at your fingertips.',
       buttonText: 'Next',
       icon: Icons.design_services,
     ),
     LandingPageSlide(
       title: 'Get a quote',
-      subtitle: 'Request price estimates from professionals to help you make informed decisions with ease.',
+      subtitle:
+          'Request price estimates from professionals to help you make informed decisions with ease.',
       buttonText: 'Next',
       icon: Icons.request_quote,
     ),
     LandingPageSlide(
       title: 'Work done',
-      subtitle: 'Sit back and relax while skilled experts efficiently take care of your tasks.',
+      subtitle:
+          'Sit back and relax while skilled experts efficiently take care of your tasks.',
       buttonText: 'Finish',
       icon: Icons.verified,
     ),
@@ -84,7 +89,8 @@ class _LandingPageState extends State<LandingPage> with TickerProviderStateMixin
   Future<void> _completeOnboarding() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('seenLandingPage', true);
-    Future.microtask(() => Navigator.of(context).pushReplacementNamed('/phoneVerification'));
+    Future.microtask(
+        () => Navigator.of(context).pushReplacementNamed('/phoneVerification'));
   }
 
   void _nextPage() {
@@ -120,7 +126,8 @@ class _LandingPageState extends State<LandingPage> with TickerProviderStateMixin
             itemBuilder: (context, index) {
               final page = _pages[index];
               return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: mediaQuery.size.height * 0.08),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 24, vertical: mediaQuery.size.height * 0.08),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -160,7 +167,8 @@ class _LandingPageState extends State<LandingPage> with TickerProviderStateMixin
                           Text(
                             page.subtitle,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(fontSize: 16, color: Colors.grey),
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.grey),
                           ),
                         ],
                       ),
@@ -169,8 +177,8 @@ class _LandingPageState extends State<LandingPage> with TickerProviderStateMixin
                     SmoothPageIndicator(
                       controller: _pageController,
                       count: _pages.length,
-                      effect: ExpandingDotsEffect(
-                        activeDotColor: const Color(0xFF007EA7),
+                      effect: const ExpandingDotsEffect(
+                        activeDotColor: Color(0xFF007EA7),
                         dotHeight: 10,
                         dotWidth: 10,
                         spacing: 8,
@@ -197,7 +205,8 @@ class _LandingPageState extends State<LandingPage> with TickerProviderStateMixin
                         ),
                         child: Text(
                           page.buttonText,
-                          style: const TextStyle(color: Colors.white, fontSize: 16),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 16),
                         ),
                       ),
                     ),
@@ -214,7 +223,8 @@ class _LandingPageState extends State<LandingPage> with TickerProviderStateMixin
               onPressed: _skip,
               child: const Text(
                 'Skip',
-                style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
+                style:
+                    TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
               ),
             ),
           ),

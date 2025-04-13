@@ -60,14 +60,14 @@ class _PromotionScreenState extends State<PromotionScreen>
                           child: Container(
                             height: 160,
                             width: 160,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
-                              color: const Color(0xFFB2DFDB),
+                              color: Color(0xFFB2DFDB),
                             ),
                             child: const Icon(
                               Icons.card_giftcard,
                               size: 80,
-                              color: const Color(0xFF007EA7),
+                              color: Color(0xFF007EA7),
                             ),
                           ),
                         );
@@ -76,7 +76,8 @@ class _PromotionScreenState extends State<PromotionScreen>
                     const SizedBox(height: 24),
                     const Text(
                       "No Promotions Yet",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
                     const Text(
@@ -92,7 +93,8 @@ class _PromotionScreenState extends State<PromotionScreen>
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 12),
                       ),
                       icon: const Icon(Icons.storefront, color: Colors.white),
                       label: const Text(

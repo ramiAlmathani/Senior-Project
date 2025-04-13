@@ -25,23 +25,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
-      routes: {
-        '/landing': (context) => const LandingPage(),
-        '/phoneVerification': (context) => const PhoneVerificationPage(),
-        '/chatbot': (context) => const ChatbotPage(),
-        '/booking': (context) {
-          final args = ModalRoute
-              .of(context)!
-              .settings
-              .arguments as Map<String, dynamic>?;
-          return BookingScreen(
-            service: args?['service'],
-            date: args?['date'],
-            time: args?['time'],
-          );
-        },
-      });
+        debugShowCheckedModeBanner: false,
+        home: const SplashScreen(),
+        routes: {
+          '/landing': (context) => const LandingPage(),
+          '/phoneVerification': (context) => const PhoneVerificationPage(),
+          '/chatbot': (context) => const ChatbotPage(),
+          '/booking': (context) {
+            final args = ModalRoute.of(context)!.settings.arguments
+                as Map<String, dynamic>?;
+            return BookingScreen(
+              service: args?['service'],
+              date: args?['date'],
+              time: args?['time'],
+            );
+          },
+        });
   }
 }

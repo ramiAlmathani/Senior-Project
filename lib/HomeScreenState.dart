@@ -8,7 +8,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeIn;
 
@@ -45,10 +46,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 decoration: InputDecoration(
                   hintText: "What do you need help with?",
                   hintStyle: const TextStyle(color: Colors.grey),
-                  prefixIcon: const Icon(Icons.search, color: const Color(0xFF007EA7)),
+                  prefixIcon:
+                      const Icon(Icons.search, color: Color(0xFF007EA7)),
                   filled: true,
                   fillColor: Colors.white,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
@@ -58,7 +61,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               const SizedBox(height: 20),
               const Text(
                 "Available Services",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black87),
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87),
               ),
               const SizedBox(height: 10),
               Expanded(
@@ -95,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 // --------------------- SERVICE TILE ---------------------
 class ServiceTile extends StatelessWidget {
   final Service service;
-  const ServiceTile({required this.service});
+  const ServiceTile({super.key, required this.service});
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +126,8 @@ class ServiceTile extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 service.name,
-                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                style:
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                 textAlign: TextAlign.center,
               ),
             ],

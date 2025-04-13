@@ -9,7 +9,6 @@ class NotificationsScreen extends StatefulWidget {
   State<NotificationsScreen> createState() => _NotificationsScreenState();
 }
 
-
 class _NotificationsScreenState extends State<NotificationsScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
@@ -61,14 +60,14 @@ class _NotificationsScreenState extends State<NotificationsScreen>
                           child: Container(
                             height: 160,
                             width: 160,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
-                              color: const Color(0xFFB2DFDB),
+                              color: Color(0xFFB2DFDB),
                             ),
                             child: const Icon(
                               Icons.notifications_off_outlined,
                               size: 80,
-                              color: const Color(0xFF007EA7),
+                              color: Color(0xFF007EA7),
                             ),
                           ),
                         );
@@ -77,7 +76,8 @@ class _NotificationsScreenState extends State<NotificationsScreen>
                     const SizedBox(height: 24),
                     const Text(
                       "No Notifications Yet",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
                     const Text(
@@ -93,7 +93,8 @@ class _NotificationsScreenState extends State<NotificationsScreen>
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 12),
                       ),
                       icon: const Icon(Icons.home, color: Colors.white),
                       label: const Text(

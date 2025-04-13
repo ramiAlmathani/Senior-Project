@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'otp_verification_page.dart';
 
 class PhoneVerificationPage extends StatefulWidget {
-  const PhoneVerificationPage({Key? key}) : super(key: key);
+  const PhoneVerificationPage({super.key});
 
   @override
   _PhoneVerificationPageState createState() => _PhoneVerificationPageState();
@@ -37,13 +37,15 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage>
   void _validateAndSendCode() async {
     String phoneNumber = _phoneController.text;
 
-    if (phoneNumber.isEmpty || phoneNumber.length != 9 || !phoneNumber.startsWith('5')) {
+    if (phoneNumber.isEmpty ||
+        phoneNumber.length != 9 ||
+        !phoneNumber.startsWith('5')) {
       setState(() {
         _errorMessage = phoneNumber.isEmpty
             ? "Phone number cannot be empty"
             : !phoneNumber.startsWith('5')
-            ? "Phone number must start with 5"
-            : "Phone number must be 9 digits";
+                ? "Phone number must start with 5"
+                : "Phone number must be 9 digits";
       });
       return;
     }
@@ -98,14 +100,15 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage>
               children: [
                 const SizedBox(height: 80),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [const Color(0xFFB2DFDB), const Color(0xFF007EA7)],
+                      colors: [Color(0xFFB2DFDB), Color(0xFF007EA7)],
                     ),
                     shape: BoxShape.circle,
                   ),
                   padding: const EdgeInsets.all(24),
-                  child: const Icon(Icons.phone_android, size: 48, color: Colors.white),
+                  child: const Icon(Icons.phone_android,
+                      size: 48, color: Colors.white),
                 ),
                 const SizedBox(height: 50),
                 const Text(
@@ -129,7 +132,8 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage>
                     hintText: "5XXXXXXXX",
                     hintStyle: const TextStyle(color: Colors.grey),
                     counterText: "",
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 14),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
@@ -137,7 +141,8 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage>
                   ),
                   onChanged: (value) {
                     setState(() {
-                      if (value.isNotEmpty && (!value.startsWith('5') || value.length > 9)) {
+                      if (value.isNotEmpty &&
+                          (!value.startsWith('5') || value.length > 9)) {
                         _errorMessage = !value.startsWith('5')
                             ? "Phone number must start with 5"
                             : "Phone number must be 9 digits";
