@@ -160,7 +160,7 @@ class _LandingPageState extends State<LandingPage>
                             style: const TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Color(0xFF007EA7),
                             ),
                           ),
                           const SizedBox(height: 20),

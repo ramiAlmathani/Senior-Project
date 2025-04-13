@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'otp_verification_page.dart';
 
 class PhoneVerificationPage extends StatefulWidget {
-  const PhoneVerificationPage({super.key});
+  const PhoneVerificationPage({Key? key}) : super(key: key);
 
   @override
   _PhoneVerificationPageState createState() => _PhoneVerificationPageState();
@@ -11,6 +12,7 @@ class PhoneVerificationPage extends StatefulWidget {
 
 class _PhoneVerificationPageState extends State<PhoneVerificationPage>
     with SingleTickerProviderStateMixin {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   String? _errorMessage;
   late AnimationController _controller;
@@ -30,25 +32,30 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage>
   @override
   void dispose() {
     _controller.dispose();
+    _nameController.dispose();
     _phoneController.dispose();
     super.dispose();
   }
 
-  void _validateAndSendCode() async {
-    String phoneNumber = _phoneController.text;
+  Future<void> _validateAndSendCode() async {
+    String name = _nameController.text.trim();
+    String phoneNumber = _phoneController.text.trim();
 
-    if (phoneNumber.isEmpty ||
-        phoneNumber.length != 9 ||
-        !phoneNumber.startsWith('5')) {
+    if (name.isEmpty || phoneNumber.isEmpty || phoneNumber.length != 9 || !phoneNumber.startsWith('5')) {
       setState(() {
-        _errorMessage = phoneNumber.isEmpty
+        _errorMessage = name.isEmpty
+            ? "Name cannot be empty"
+            : phoneNumber.isEmpty
             ? "Phone number cannot be empty"
             : !phoneNumber.startsWith('5')
-                ? "Phone number must start with 5"
-                : "Phone number must be 9 digits";
+            ? "Phone number must start with 5"
+            : "Phone number must be 9 digits";
       });
       return;
     }
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userName', name);
 
     String fullPhoneNumber = '+966$phoneNumber';
 
@@ -98,7 +105,7 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage>
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 80),
+                const SizedBox(height: 60),
                 Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
@@ -107,42 +114,69 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage>
                     shape: BoxShape.circle,
                   ),
                   padding: const EdgeInsets.all(24),
-                  child: const Icon(Icons.phone_android,
-                      size: 48, color: Colors.white),
+                  child: const Icon(Icons.phone_android, size: 48, color: Colors.white),
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 40),
                 const Text(
-                  "Verify Your Phone Number",
+                  "Enter Your Name and Phone Number",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: Color(0xFF007EA7),
                   ),
                 ),
                 const SizedBox(height: 30),
+
+                // ---------------- Name Field ----------------
+                TextField(
+                  controller: _nameController,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: InputDecoration(
+                    labelText: "Name",
+                    labelStyle: const TextStyle(color: Colors.grey),
+                    floatingLabelStyle: const TextStyle(color: Color(0xFF007EA7)),
+                    filled: true,
+                    fillColor: Colors.grey[100],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFF007EA7), width: 1.5),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                // ---------------- Phone Field ----------------
                 TextField(
                   controller: _phoneController,
                   keyboardType: TextInputType.number,
                   maxLength: 9,
                   decoration: InputDecoration(
+                    labelText: "Phone Number",
+                    labelStyle: const TextStyle(color: Colors.grey),
+                    floatingLabelStyle: const TextStyle(color: Color(0xFF007EA7)),
                     prefixText: '+966 ',
                     filled: true,
                     fillColor: Colors.grey[100],
-                    hintText: "5XXXXXXXX",
-                    hintStyle: const TextStyle(color: Colors.grey),
                     counterText: "",
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 14),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFF007EA7), width: 1.5),
+                    ),
                   ),
                   onChanged: (value) {
                     setState(() {
-                      if (value.isNotEmpty &&
-                          (!value.startsWith('5') || value.length > 9)) {
+                      if (value.isNotEmpty && (!value.startsWith('5') || value.length > 9)) {
                         _errorMessage = !value.startsWith('5')
                             ? "Phone number must start with 5"
                             : "Phone number must be 9 digits";
@@ -152,6 +186,7 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage>
                     });
                   },
                 ),
+
                 if (_errorMessage != null)
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
@@ -160,7 +195,9 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage>
                       style: const TextStyle(color: Colors.red, fontSize: 14),
                     ),
                   ),
+
                 const SizedBox(height: 40),
+
                 ElevatedButton(
                   onPressed: _validateAndSendCode,
                   style: ElevatedButton.styleFrom(

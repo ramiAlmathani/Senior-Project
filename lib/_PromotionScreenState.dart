@@ -42,7 +42,7 @@ class _PromotionScreenState extends State<PromotionScreen>
           children: [
             const Text(
               "Promotions",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Color(0xFF007EA7)),
             ),
             const SizedBox(height: 40),
             Expanded(
@@ -77,7 +77,7 @@ class _PromotionScreenState extends State<PromotionScreen>
                     const Text(
                       "No Promotions Yet",
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Color(0xFF007EA7)),
                     ),
                     const SizedBox(height: 8),
                     const Text(

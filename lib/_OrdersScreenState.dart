@@ -59,7 +59,7 @@ class _OrdersScreenState extends State<OrdersScreen>
           const SizedBox(height: 24),
           Text(
             title,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Color(0xFF007EA7)),
           ),
           const SizedBox(height: 8),
           Text(
@@ -99,7 +99,7 @@ class _OrdersScreenState extends State<OrdersScreen>
             const SizedBox(height: 30),
             const Text(
               "My Orders",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF007EA7)),
             ),
             const SizedBox(height: 10),
             const TabBarWidget(),

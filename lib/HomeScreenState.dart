@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:senior_project/service_providers_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:senior_project/service_model.dart';
+import 'package:senior_project/service_providers_page.dart';
 
-// --------------------- HOME SCREEN ---------------------
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -14,16 +14,26 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeIn;
+  String? _userName;
 
   @override
   void initState() {
     super.initState();
+    _loadUserName();
+
     _controller = AnimationController(
       duration: const Duration(milliseconds: 600),
       vsync: this,
     );
     _fadeIn = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _controller.forward();
+  }
+
+  Future<void> _loadUserName() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userName = prefs.getString('userName') ?? '';
+    });
   }
 
   @override
@@ -44,22 +54,36 @@ class _HomeScreenState extends State<HomeScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
+
+              // ✅ Greeting message
+              if (_userName != null && _userName!.isNotEmpty)
+                Text(
+                  "Hello, $_userName 👋",
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF007EA7),
+                  ),
+                ),
+
+              const SizedBox(height: 16),
+
               TextField(
                 decoration: InputDecoration(
                   hintText: "What do you need help with?",
                   hintStyle: const TextStyle(color: Colors.grey),
-                  prefixIcon:
-                      const Icon(Icons.search, color: Color(0xFF007EA7)),
+                  prefixIcon: const Icon(Icons.search, color: Color(0xFF007EA7)),
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
                   ),
                 ),
               ),
+
               const SizedBox(height: 20),
               const Text(
                 "Available Services",
@@ -87,8 +111,6 @@ class _HomeScreenState extends State<HomeScreen>
           ),
         ),
       ),
-
-      // ------------------ CHATBOT ICON ------------------
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFF007EA7),
         onPressed: () {
@@ -99,6 +121,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 }
+
 
 // --------------------- SERVICE TILE ---------------------
 class ServiceTile extends StatelessWidget {

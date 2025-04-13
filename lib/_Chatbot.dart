@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatbotPage extends StatefulWidget {
   const ChatbotPage({super.key});
@@ -16,14 +17,57 @@ class _ChatbotPageState extends State<ChatbotPage>
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
+  String? _userName;
+  late AnimationController _chipController;
+  late Animation<Offset> _slideAnimation;
+  late Animation<double> _fadeAnimation;
 
-  final List<String> quickReplies = [
+  @override
+  void initState() {
+    _chipController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0.0, 0.5),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _chipController, curve: Curves.easeOut));
+
+    _fadeAnimation =
+        CurvedAnimation(parent: _chipController, curve: Curves.easeIn);
+
+    super.initState();
+    _loadUserName();
+    _chipController.forward();
+  }
+
+  List<String> _suggestedReplies = [
     "Cleaning",
     "Plumbing",
     "Moving",
     "Handyman",
     "Delivery"
   ];
+
+
+  Future<void> _loadUserName() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userName = prefs.getString('userName') ?? '';
+    });
+
+    if (_userName!.isNotEmpty) {
+      _messages.insert(
+        0,
+        _ChatMessage(
+          text: "Hi, $_userName 👋\nWhat can I help you with today?",
+          isUser: false,
+          animation: null,
+        ),
+      );
+    }
+  }
 
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -58,10 +102,11 @@ class _ChatbotPageState extends State<ChatbotPage>
           "messages": [
             {
               "role": "system",
-              "content":
-                  "You are a helpful assistant for a task booking app. Guide the user to book tasks with date and time."
+              "content": "You are a helpful assistant named TaskBot. The user you're helping is named ${_userName ?? 'there'}.\n"
+                  "Always respond in a friendly tone, and refer to the user by name when appropriate. "
+                  "Your job is to help the user book services like Cleaning, Moving, etc., and collect their date and time preferences."
             },
-            ..._messages.map((msg) => {
+            _messages.map((msg) => {
                   "role": msg.isUser ? "user" : "assistant",
                   "content": msg.text,
                 })
@@ -82,6 +127,7 @@ class _ChatbotPageState extends State<ChatbotPage>
           isUser: false,
           animation: animController,
         ));
+        _suggestedReplies = _extractSuggestions(reply);
         animController.forward();
         _isLoading = false;
       });
@@ -99,6 +145,27 @@ class _ChatbotPageState extends State<ChatbotPage>
       });
     }
   }
+
+  List<String> _extractSuggestions(String reply) {
+    if (reply.toLowerCase().contains("clean")) {
+      return ["Deep Clean", "Standard Clean", "Bathroom", "Kitchen"];
+    } else if (reply.toLowerCase().contains("plumb")) {
+      return ["Leak", "Install Faucet", "Drain Issue"];
+    } else if (reply.toLowerCase().contains("move")) {
+      return ["Apartment", "Office", "Heavy Items"];
+    } else if (reply.toLowerCase().contains("handyman")) {
+      return ["TV Mounting", "Furniture Repair", "Hanging Pictures"];
+    } else {
+      return [
+        "Cleaning",
+        "Plumbing",
+        "Moving",
+        "Handyman",
+        "Delivery"
+      ]; // default
+    }
+  }
+
 
   void _checkForBookingIntent(String combinedText) async {
     final lower = combinedText.toLowerCase();
@@ -153,6 +220,7 @@ class _ChatbotPageState extends State<ChatbotPage>
   void dispose() {
     _controller.dispose();
     _scrollController.dispose();
+    _chipController.dispose();
     for (var msg in _messages) {
       msg.animation?.dispose();
     }
@@ -200,21 +268,34 @@ class _ChatbotPageState extends State<ChatbotPage>
               padding: EdgeInsets.symmetric(vertical: 8),
               child: CircularProgressIndicator(),
             ),
-          if (!_isLoading && _messages.isEmpty)
+          if (!_isLoading &&
+              (_messages.isEmpty ||
+                  (_messages.length == 1 && !_messages.first.isUser)))
             Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                alignment: WrapAlignment.center,
-                children: quickReplies.map((reply) {
-                  return ActionChip(
-                    label: Text(reply),
-                    backgroundColor: const Color(0xFFB2DFDB),
-                    labelStyle: const TextStyle(color: Color(0xFF007EA7)),
-                    onPressed: () => _handleQuickReply(reply),
-                  );
-                }).toList(),
+              padding: const EdgeInsets.only(bottom: 12, left: 12, right: 12),
+              child: FadeTransition(
+                opacity: _fadeAnimation,
+                child: SlideTransition(
+                  position: _slideAnimation,
+                  child: SizedBox(
+                    height: 40,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _suggestedReplies.length,
+                      itemBuilder: (context, index) {
+                        final reply = _suggestedReplies[index];
+                        return ActionChip(
+                          label: Text(reply),
+                          backgroundColor: const Color(0xFFB2DFDB),
+                          labelStyle: const TextStyle(color: Color(0xFF007EA7)),
+                          onPressed: () => _sendMessage(reply),
+                        );
+                      },
+                      separatorBuilder: (context, index) => const SizedBox(width: 10),
+                    ),
+
+                  ),
+                ),
               ),
             ),
           _buildInputBar(),

@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
 
-  Widget _buildDrawerItem(BuildContext context, IconData icon, String text,
-      {VoidCallback? onTap}) {
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  String? _userName;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserName();
+  }
+
+  Future<void> _loadUserName() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userName = prefs.getString('userName') ?? '';
+    });
+  }
+
+  Widget _buildDrawerItem(BuildContext context, IconData icon, String text, {VoidCallback? onTap}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6),
       child: Material(
@@ -29,12 +49,10 @@ class CustomDrawer extends StatelessWidget {
                   Expanded(
                     child: Text(
                       text,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w500),
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ),
-                  const Icon(Icons.arrow_forward_ios,
-                      size: 16, color: Colors.grey),
+                  const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
                 ],
               ),
             ),
@@ -73,14 +91,15 @@ class CustomDrawer extends StatelessWidget {
                   const CircleAvatar(
                     radius: 26,
                     backgroundColor: Colors.white,
-                    child:
-                        Icon(Icons.person, size: 30, color: Color(0xFF007EA7)),
+                    child: Icon(Icons.person, size: 30, color: Color(0xFF007EA7)),
                   ),
                   const SizedBox(width: 16),
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      "Mafi Mushkil",
-                      style: TextStyle(
+                      _userName != null && _userName!.isNotEmpty
+                          ? _userName!
+                          : "Mafi Mushkil",
+                      style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -117,10 +136,16 @@ class CustomDrawer extends StatelessWidget {
             const Spacer(),
 
             // ---------- Footer ----------
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text("Pixel io\nTechnologies",
+                      style: TextStyle(fontSize: 12, color: Colors.grey)),
+                  Text("Version 1.0",
+                      style: TextStyle(fontSize: 12, color: Colors.grey)),
+                ],
               ),
             ),
           ],

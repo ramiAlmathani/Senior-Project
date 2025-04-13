@@ -7,10 +7,10 @@ class OTPVerificationPage extends StatefulWidget {
   final String verificationId;
 
   const OTPVerificationPage({
-    super.key,
+    Key? key,
     required this.phoneNumber,
     required this.verificationId,
-  });
+  }) : super(key: key);
 
   @override
   _OTPVerificationPageState createState() => _OTPVerificationPageState();
@@ -68,7 +68,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
           },
           transitionDuration: const Duration(milliseconds: 500),
         ),
-        (route) => false,
+            (route) => false,
       );
     } catch (e) {
       setState(() {
@@ -104,8 +104,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                         shape: BoxShape.circle,
                       ),
                       padding: const EdgeInsets.all(24),
-                      child:
-                          const Icon(Icons.chat, size: 48, color: Colors.white),
+                      child: const Icon(Icons.chat, size: 48, color: Colors.white),
                     ),
                     const SizedBox(height: 30),
                     const Text(
@@ -113,7 +112,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                        color: Color(0xFF007EA7),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -123,24 +122,33 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                       style: const TextStyle(fontSize: 16, color: Colors.grey),
                     ),
                     const SizedBox(height: 40),
+
                     TextField(
                       controller: _codeController,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.number,
                       maxLength: 6,
                       decoration: InputDecoration(
+                        labelText: " 6-digit Code",
+                        labelStyle: const TextStyle(color: Colors.grey),
+                        floatingLabelStyle:
+                        const TextStyle(color: Color(0xFF007EA7)),
                         filled: true,
                         fillColor: Colors.grey[100],
-                        hintText: "6-digit code",
                         counterText: "",
-                        contentPadding:
-                            const EdgeInsets.symmetric(vertical: 14),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 14),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,
                         ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide:
+                          const BorderSide(color: Color(0xFF007EA7), width: 1.5),
+                        ),
                       ),
                     ),
+
                     if (_errorMessage != null)
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
@@ -150,6 +158,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                         ),
                       ),
                     const SizedBox(height: 30),
+
                     ElevatedButton(
                       onPressed: _verifyCode,
                       style: ElevatedButton.styleFrom(
@@ -164,10 +173,12 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
+
                     const SizedBox(height: 20),
+
                     TextButton(
                       onPressed: () {
-                        // Optional: add resend logic here
+                        // TODO: Add resend logic
                       },
                       child: const Text(
                         "Resend Code",
