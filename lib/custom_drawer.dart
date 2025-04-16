@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,6 +11,46 @@ class CustomDrawer extends StatefulWidget {
 
 class _CustomDrawerState extends State<CustomDrawer> {
   String? _userName;
+
+  void _confirmLogout(BuildContext context) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Log Out"),
+        content: const Text("Are you sure you want to log out?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            style: TextButton.styleFrom(foregroundColor:const Color(0xFF007EA7)),
+            child: const Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: TextButton.styleFrom(foregroundColor: Colors.redAccent),
+            child: const Text("Log out"),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('userName');
+      await prefs.remove('profileImage');
+      await FirebaseAuth.instance.signOut();
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Logged out successfully!"),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -98,7 +139,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     child: Text(
                       _userName != null && _userName!.isNotEmpty
                           ? _userName!
-                          : "Mafi Mushkil",
+                          : "",
                       style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
@@ -117,8 +158,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
             const SizedBox(height: 16),
 
             // ---------- Drawer Items ----------
-            _buildDrawerItem(context, Icons.person_outline, "My Profile"),
-            const SizedBox(height: 8),
+            _buildDrawerItem(
+            context,
+            Icons.person_outline,
+            "My Profile",
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/profile');
+            },
+            ),
             _buildDrawerItem(context, Icons.mail_outline, "Contact us"),
             const SizedBox(height: 8),
             _buildDrawerItem(context, Icons.engineering, "Become a worker"),
@@ -131,7 +179,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
             const SizedBox(height: 8),
             _buildDrawerItem(context, Icons.star_border, "Rate"),
             const SizedBox(height: 8),
-            _buildDrawerItem(context, Icons.logout, "Logout"),
+            _buildDrawerItem(
+              context,
+              Icons.logout,
+              "Logout",
+              onTap: () => _confirmLogout(context),
+            ),
 
             const Spacer(),
 

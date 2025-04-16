@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:senior_project/firebase_options.dart';
+import '_ProfilePageState.dart';
 import 'phone_verification_page.dart';
 import '_LandingPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           '/landing': (context) => const LandingPage(),
           '/phoneVerification': (context) => const PhoneVerificationPage(),
           '/chatbot': (context) => const ChatbotPage(),
+          '/profile': (context) => const MyProfilePage(),
           '/booking': (context) {
             final args = ModalRoute.of(context)!.settings.arguments
                 as Map<String, dynamic>?;

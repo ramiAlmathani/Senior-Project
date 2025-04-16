@@ -129,25 +129,25 @@ class _OTPVerificationPageState extends State<OTPVerificationPage>
                       keyboardType: TextInputType.number,
                       maxLength: 6,
                       decoration: InputDecoration(
-                        labelText: " 6-digit Code",
+                        labelText: "6-digit Code",
                         labelStyle: const TextStyle(color: Colors.grey),
-                        floatingLabelStyle:
-                        const TextStyle(color: Color(0xFF007EA7)),
+                        floatingLabelStyle: const TextStyle(color: Color(0xFF007EA7)),
                         filled: true,
                         fillColor: Colors.grey[100],
                         counterText: "",
-                        contentPadding: const EdgeInsets.symmetric(vertical: 14),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide:
-                          const BorderSide(color: Color(0xFF007EA7), width: 1.5),
+                          borderSide: const BorderSide(color: Color(0xFF007EA7), width: 1.5),
                         ),
                       ),
                     ),
+
+
 
                     if (_errorMessage != null)
                       Padding(
